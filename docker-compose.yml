@@ -22,17 +22,14 @@ services:
     build: .
     container_name: notes_app
     environment:
-      DATABASE_URL: "mysql://notes_user:notes_password@db:3306/notes_db"
+      DATABASE_URL: mysql://root:root_password@db:3306/notes_db
       PORT: 3000
     ports:
       - "3000:3000"
     depends_on:
       db:
         condition: service_healthy
-    command: sh -c "npm run prisma:migrate -- --skip-generate && npm start"
-    volumes:
-      - .:/app
-      - /app/node_modules
+    command: sh -c "npm run prisma:migrate && npm start"
 
 volumes:
   mysql_data:
